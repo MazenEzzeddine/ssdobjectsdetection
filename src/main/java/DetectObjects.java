@@ -48,9 +48,11 @@ public class DetectObjects {
     final String[] labels = loadLabels("C:\\Users\\m.ezzeddine\\Desktop\\Experiments\\ssd\\labels\\mscoco_label_map.pbtxt");
     try (SavedModelBundle model = SavedModelBundle.load("C:\\Users\\m.ezzeddine\\Desktop\\Experiments\\ssd\\models\\" +
             "ssd_inception_v2_coco_2017_11_17\\saved_model", "serve")) {
-      //printSignature(model);
-        final String filename = "C:\\Users\\m.ezzeddine\\Desktop\\Experiments\\ssd\\images\\test.jpg";
-        List<Tensor<?>> outputs = null;
+      printSignature(model);
+      //final String filename = "C:\\Users\\m.ezzeddine\\Desktop\\Experiments\\ssd\\images\\test.jpg";
+      final String filename = "C:\\Users\\m.ezzeddine\\Desktop\\Experiments\\ssd\\images\\img_3.png";
+
+      List<Tensor<?>> outputs = null;
         try (Tensor<UInt8> input = makeImageTensor(filename)) {
           outputs =
               model
@@ -100,6 +102,8 @@ public class DetectObjects {
       System.out.printf(
           "%d of %d: %-20s (Node name in graph: %-20s, type: %s)\n",
           i++, numInputs, entry.getKey(), t.getName(), t.getDtype());
+
+
     }
     int numOutputs = sig.getOutputsCount();
     i = 1;
